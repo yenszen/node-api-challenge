@@ -34,6 +34,26 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.get("/:id/actions", (req, res) => {
+  const { id } = req.params;
+
+  projectDb
+    .getProjectActions(id)
+    .then(actions => {
+      if (actions.length > 0) {
+        res.status(200).json(actions);
+      } else {
+        res.status(404).json({
+          message:
+            "Project with specified ID does not exist / contain any actions"
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Database error" });
+    });
+});
+
 router.post("/", (req, res) => {
   const changes = req.body;
 
@@ -60,18 +80,16 @@ router.put("/:id", (req, res) => {
   projectDb
     .update(id, changes)
     .then(edited => {
-      if (edited) {
-        if (!changes.name || !changes.description) {
-          res
-            .status(400)
-            .json({ message: "Please specify both name and description" });
-        } else {
-          res.status(200).json(edited);
-        }
-      } else {
+      if (!edited) {
         res
           .status(404)
           .json({ message: "Project with specified ID does not exist" });
+      } else if (!changes.name || !changes.description) {
+        res
+          .status(400)
+          .json({ message: "Please specify both name and description" });
+      } else {
+        res.status(200).json(edited);
       }
     })
     .catch(err => {
