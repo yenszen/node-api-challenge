@@ -40,13 +40,25 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+Express is a framework for building RESTful APIs that sits on top of Node on the backend like how React is for the frontend.
+
+In Express, middlewares are basically an array of functions that can change the request or response, although not obligated to do so.
+
 - [ ] Describe Middleware?
+
+Middleware functions can get the request and response objects, operate on them, and trigger some action when specified.
 
 - [ ] Describe a Resource?
 
+A resource is any piece of information that web applications are trying to request from web servers in order for the client to gain access to them.
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+The API can return HTTP status codes in order to let clients know if a request was successful, such as a 200 OK status code. We use the .status() method to send such codes in Express.
+
 - [ ] How can we partition our application into sub-applications?
+
+We can partition our application into sub-applications by separating our code into smaller, individual files and using the require() method from CommonJS integrated into Node to import as well as “modules.export” to export these files and share them across our application.
 
 ## Minimum Viable Product
 
